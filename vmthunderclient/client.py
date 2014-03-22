@@ -21,7 +21,7 @@ class Client(object):
     def _request(self,url, body={}):
         kwargs = self._get_kwargs(body)
         resp = requests.request('GET', url, kwargs)
-        print resp.content
+        return resp
 
     def list(self):
         url = self._get_url('list')
