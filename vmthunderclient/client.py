@@ -18,14 +18,18 @@ class Client(object):
             kwargs['body'] = jsonutils.dumps(body)
         return kwargs
 
-    def _request(self,url, body={}):
+    def _get(self,url):
+        resp = requests.request('GET', url)
+        return resp
+
+    def _post(self, url, body):
         kwargs = self._get_kwargs(body)
-        resp = requests.request('GET', url, kwargs)
+        resp = requests.request('POST', url, kwargs)
         return resp
 
     def list(self):
         url = self._get_url('list')
-        self._request(url)
+        self._get(url)
 
     def create(self, image_id, vm_name, connections, snapshot_dev):
         url = self._get_url('create')
@@ -35,11 +39,11 @@ class Client(object):
             'connections':connections,
             'snapshot_dev':snapshot_dev
         }
-        self._request(url, body)
+        self._post(url, body)
 
     def destroy(self, vm_name):
         url = self._get_url('destroy')
         body = {
              'vm_name':vm_name,
         }
-        self._request(url, body)
+        self._post(url, body)
