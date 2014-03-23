@@ -21,6 +21,40 @@ if __name__ == '__main__':
 
     client1 = client.Client('10.107.14.163:8001')
     #client1.list()
+    #client1.destroy('vm1')
+    client1.create('1', 'vm1', [prop0], '/dev/loop1')
+    instances = client1.list()['instances']
+    for ins in instances:
+        print ins['vm_name']
+    assert len(instances) == 1, 'failed to create'
+
     client1.destroy('vm1')
-    #client1.create('1', 'vm1', [prop0], '/dev/loop1')
-    client1.list()
+    instances = client1.list()['instances']
+    for ins in instances:
+        print ins['vm_name']
+    assert len(instances) == 0, 'failed to destroy'
+
+    client1.create('1', 'vm1', [prop0], '/dev/loop1')
+    instances = client1.list()['instances']
+    print instances
+    for ins in instances:
+        print ins['vm_name']
+    assert len(instances) == 1, 'failed to create'
+
+    client1.create('1', 'vm1', [prop0], '/dev/loop1')
+    instances = client1.list()['instances']
+    for ins in instances:
+        print ins['vm_name']
+    assert len(instances) == 1, 'failed to create'
+
+    client1.destroy('vm1')
+    instances = client1.list()['instances']
+    for ins in instances:
+        print ins['vm_name']
+    assert len(instances) == 0, 'failed to destroy'
+
+    client1.destroy('vm1')
+    instances = client1.list()['instances']
+    for ins in instances:
+        print ins['vm_name']
+    assert len(instances) == 0, 'failed to destroy'

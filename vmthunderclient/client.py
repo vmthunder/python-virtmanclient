@@ -29,7 +29,9 @@ class Client(object):
 
     def list(self):
         url = self._get_url('list')
-        self._get(url)
+        resp = self._get(url)
+        instances = jsonutils.loads(resp.content)
+        return instances
 
     def create(self, image_id, vm_name, connections, snapshot_dev):
         url = self._get_url('create')
