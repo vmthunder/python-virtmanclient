@@ -15,7 +15,7 @@ class Client(object):
         kwargs['headers']['Accept'] = 'application/json'
         kwargs['headers']['Content-Type'] = 'application/json'
         if not body == {}:
-            kwargs['body'] = jsonutils.dumps(body)
+            kwargs['data'] = jsonutils.dumps(body)
         return kwargs
 
     def _get(self,url):
@@ -24,7 +24,7 @@ class Client(object):
 
     def _post(self, url, body):
         kwargs = self._get_kwargs(body)
-        resp = requests.request('POST', url, kwargs)
+        resp = requests.request('POST', url, **kwargs)
         return resp
 
     def list(self):
