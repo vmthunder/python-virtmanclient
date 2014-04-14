@@ -43,7 +43,8 @@ class Client(object):
             'connections': connections,
             'snapshot_dev': snapshot_dev
         }
-        self._post(url, body)
+        resp = self._post(url, body)
+        return resp.content
 
     def destroy(self, vm_name):
         url = self._get_url('destroy')
